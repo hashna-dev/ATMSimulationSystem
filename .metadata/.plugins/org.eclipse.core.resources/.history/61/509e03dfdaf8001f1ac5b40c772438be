@@ -1,0 +1,5 @@
+package com.ty.atm.model;
+
+public class Transaction {
+
+}

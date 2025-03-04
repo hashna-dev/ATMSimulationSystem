@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ATM System</title>
+    <script>
+        function submitForm(action) {
+            let form = document.getElementById("atmForm");
+            form.action = action;
+            form.submit();
+        }
+    </script>
+</head>
+<body>
+    <h2>Welcome to the ATM</h2>
+    <form id="atmForm" method="post">
+        <label>Account Number:</label>
+        <input type="text" name="accountNumber" required><br><br>
+
+        <label>PIN:</label>
+        <input type="password" name="pin" required><br><br>
+
+        <label>Amount (for Deposit/Withdraw):</label>
+        <input type="text" name="amount"><br><br>
+
+        <button type="button" onclick="submitForm('/atm/check-balance')">Check Balance</button>
+        <button type="button" onclick="submitForm('/atm/deposit')">Deposit</button>
+        <button type="button" onclick="submitForm('/atm/withdraw')">Withdraw</button>
+    </form>
+</body>
+</html>

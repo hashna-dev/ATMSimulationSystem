@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>
+		THE NAME OF THE STUDENT IS <span th:text="${Name}"></span>
+	</h1>
+
+	<div th:with="v=${Name}">
+		<h4 th:text="'The value of v is: ' + ${v}"></h4>
+
+	</div>
+
+	<h1 th:text="${#strings.toUpperCase(Name)}"></h1>
+	<h1 th:text="${#strings.toLowerCase(Name)}"></h1>
+	<h1>
+		THE LENGTH OF THE NAME IS <span th:text="${#strings.length(Name)}"></span>
+	</h1>
+
+	<div th:with="a=10, b=20">
+		<h1
+			th:text="'Sum of ' + ${a} + ' and ' + ${b} + ' is ' + (${a} + ${b})"></h1>
+	</div>
+
+	<h1 th:text="${CurrentDate}"></h1>
+</body>
+</html>

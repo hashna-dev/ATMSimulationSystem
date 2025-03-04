@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/style.css">
+    <meta charset="UTF-8">
+    <title>Transaction History</title>
+</head>
+<body>
+    <h1>Transaction History</h1>
+    
+    <table border="1">
+        <tr>
+            <th>Transaction ID</th>
+            <th>Amount</th>
+            <th>Type</th>
+            <th>Timestamp</th>
+        </tr>
+
+        <!-- Loop through each transaction and display in table -->
+        <tr th:each="transaction : ${transactions}">
+            <td th:text="${transaction.id}"></td>
+            <td th:text="${transaction.amount}"></td>
+            <td th:text="${transaction.type}"></td>
+            <td th:text="${transaction.timeStamp}"></td>
+        </tr>
+    </table>
+
+</body>
+</html>

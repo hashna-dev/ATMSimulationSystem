@@ -1,0 +1,50 @@
+package com.ty.atm.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.ty.atm.service.ATMService;
+
+@RestController
+@RequestMapping("/atm")
+public class ATMController {
+
+    private final ATMService atmService;
+
+    public ATMController(ATMService atmService) {
+        this.atmService = atmService;
+    }
+
+    @GetMapping("/check-balance/{accountNumber}")
+    public ResponseEntity<?> checkBalance(@PathVariable Long accountNumber) {
+        System.out.println("Received request for account number: " + accountNumber);
+        
+        try {
+            double balance = atmService.checkBalance(accountNumber);
+            return ResponseEntity.ok(balance);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/withdraw")
+    public ResponseEntity<?> withdraw(@RequestParam Long accountNumber, @RequestParam double amount) {
+        try {
+            atmService.withdraw(accountNumber, amount);
+            return ResponseEntity.ok("Withdrawal successful.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/deposit")
+    public ResponseEntity<?> deposit(@RequestParam Long accountNumber, @RequestParam double amount) {
+        try {
+            atmService.deposit(accountNumber, amount);
+            return ResponseEntity.ok("Deposit successful.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+}

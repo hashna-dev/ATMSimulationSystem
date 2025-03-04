@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h1>For Each in thymeleaf</h1>
+	<h3 th:text="${names}"></h3>
+	<ul>
+		<li th:each="n:${names}"><span th:text="${n}"> </span></li>
+	</ul>
+	
+	<h3> Status indexing</h3>
+	<ul>
+		<li th:each="m,status:${names}"><span
+			th:text="${status.index}+' '+${m}"> </span></li>
+	</ul>
+	<ul>
+		<h3> Status odd</h3>
+		<li th:each="p,status:${names}"><span
+			th:style="${status.odd}?'color:pink;font-weight:bold':''"
+			th:text="${p}"> </span></li>
+	</ul>
+
+	<h3> Status even</h3>
+<ul>
+		<li th:each="p,status:${names}"><span
+			th:style="${status.even}?'color:purple;font-weight:bold':''"
+			th:text="${p}"> </span></li>
+	</ul>
+		<h3> Status Count</h3>
+	<ul>
+		<li th:each="x,status:${names}"><span
+			th:text="${status.count}+' '+${x}"> </span></li>
+	</ul>
+
+
+
+</body>
+</html>

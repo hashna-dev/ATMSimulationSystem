@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ATM Login</title>
+</head>
+<body>
+    <h2>Welcome to the ATM</h2>
+    <form action="/atm/menu" method="post">
+        <label>Account Number:</label>
+        <input type="text" name="accountNumber" required><br><br>
+
+        <label>PIN:</label>
+        <input type="password" name="pin" required><br><br>
+
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>

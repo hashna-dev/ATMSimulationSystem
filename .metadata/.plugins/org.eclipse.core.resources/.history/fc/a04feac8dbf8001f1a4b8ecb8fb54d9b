@@ -1,0 +1,51 @@
+package com.example.atm.service;
+
+import com.example.atm.model.Account;
+import com.example.atm.model.Transaction;
+import com.example.atm.repository.AccountRepository;
+import com.example.atm.repository.TransactionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ATMService {
+    @Autowired
+    private AccountRepository accountRepository;
+
+    @Autowired
+    private TransactionRepository transactionRepository;
+
+    public double checkBalance(Long accountNumber, String pin) {
+        Account account = accountRepository.findByAccountNumberAndPin(accountNumber, pin)
+                .orElseThrow(() -> new RuntimeException("Invalid account number or PIN"));
+        return account.getBalance();
+    }
+
+    public String deposit(Long accountNumber, String pin, double amount) {
+        Account account = accountRepository.findByAccountNumberAndPin(accountNumber, pin)
+                .orElseThrow(() -> new RuntimeException("Invalid account number or PIN"));
+
+        account.setBalance(account.getBalance() + amount);
+        accountRepository.save(account);
+
+        transactionRepository.save(new Transaction(accountNumber, "DEPOSIT", amount));
+
+        return "Deposit successful. New balance: " + account.getBalance();
+    }
+
+    public String withdraw(Long accountNumber, String pin, double amount) {
+        Account account = accountRepository.findByAccountNumberAndPin(accountNumber, pin)
+                .orElseThrow(() -> new RuntimeException("Invalid account number or PIN"));
+
+        if (account.getBalance() < amount) {
+            throw new RuntimeException("Insufficient funds");
+        }
+
+        account.setBalance(account.getBalance() - amount);
+        accountRepository.save(account);
+
+        transactionRepository.save(new Transaction(accountNumber, "WITHDRAW", amount));
+
+        return "Withdrawal successful. Remaining balance: " + account.getBalance();
+    }
+}

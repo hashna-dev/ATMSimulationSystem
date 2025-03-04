@@ -1,0 +1,42 @@
+package com.ty.atm.controller;
+
+import com.ty.atm.service.ATMService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+@RequestMapping("/atm")
+public class ATMController {
+    private final ATMService atmService;
+
+    public ATMController(ATMService atmService) {
+        this.atmService = atmService;
+    }
+
+    @GetMapping("/")
+    public String home() {
+        return "index";
+    }
+
+    @GetMapping("/balance")
+    public String checkBalance(@RequestParam Long accountNumber, Model model) {
+        double balance = atmService.checkBalance(accountNumber);
+        model.addAttribute("balance", balance);
+        return "balance";
+    }
+
+    @PostMapping("/withdraw")
+    public String withdraw(@RequestParam Long accountNumber, @RequestParam double amount, Model model) {
+        String message = atmService.withdraw(accountNumber, amount);
+        model.addAttribute("message", message);
+        return "result";
+    }
+
+    @PostMapping("/deposit")
+    public String deposit(@RequestParam Long accountNumber, @RequestParam double amount, Model model) {
+        String message = atmService.deposit(accountNumber, amount);
+        model.addAttribute("message", message);
+        return "result";
+    }
+}

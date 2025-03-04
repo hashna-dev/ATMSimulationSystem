@@ -1,0 +1,38 @@
+package com.ty.atm.model;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "accounts")
+public class Account {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true, nullable = false)
+    private Long accountNumber;
+
+    @Column(nullable = false)
+    private String pin;
+
+    @Column(nullable = false)
+    private double balance;
+
+    public Account() {}
+
+    public Account(Long accountNumber, String pin, double balance) {
+        this.accountNumber = accountNumber;
+        this.pin = pin;
+        this.balance = balance;
+    }
+
+    // Getters and Setters
+    public Long getId() { return id; }
+    public Long getAccountNumber() { return accountNumber; }
+    public String getPin() { return pin; }
+    public double getBalance() { return balance; }
+
+    public void setAccountNumber(Long accountNumber) { this.accountNumber = accountNumber; }
+    public void setPin(String pin) { this.pin = pin; }
+    public void setBalance(double balance) { this.balance = balance; }
+}

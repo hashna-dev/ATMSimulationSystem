@@ -1,0 +1,47 @@
+package com.example.atm.service;
+
+import com.ty.atm.model.Account;
+import com.ty.atm.repository.AccountRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+public class ATMService {
+    private final AccountRepository accountRepository;
+
+    public ATMService(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
+    }
+
+    public double checkBalance(Long accountNumber) {
+        Optional<Account> account = accountRepository.findByAccountNumber(accountNumber);
+        return account.map(Account::getBalance).orElseThrow(() -> new RuntimeException("Account not found"));
+    }
+
+    public String withdraw(Long accountNumber, double amount) {
+        Optional<Account> accountOpt = accountRepository.findByAccountNumber(accountNumber);
+        if (accountOpt.isPresent()) {
+            Account account = accountOpt.get();
+            if (account.getBalance() >= amount) {
+                account.setBalance(account.getBalance() - amount);
+                accountRepository.save(account);
+                return "Withdrawal successful. New balance: " + account.getBalance();
+            } else {
+                return "Insufficient funds!";
+            }
+        }
+        return "Account not found!";
+    }
+
+    public String deposit(Long accountNumber, double amount) {
+        Optional<Account> accountOpt = accountRepository.findByAccountNumber(accountNumber);
+        if (accountOpt.isPresent()) {
+            Account account = accountOpt.get();
+            account.setBalance(account.getBalance() + amount);
+            accountRepository.save(account);
+            return "Deposit successful. New balance: " + account.getBalance();
+        }
+        return "Account not found!";
+    }
+}

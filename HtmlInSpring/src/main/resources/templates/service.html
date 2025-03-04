@@ -1,0 +1,15 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!--  <footer th:replace="footer::venky" id="vvenkyy"> </footer>
+	<footer th:insert="footer::service" id="myservice"> </footer>
+	<footer th:include="footer::loorem" id="ervice"> </footer>
+<footer th:insert="footer::service('This is title','This is subtitle')" id="myservice"> </footer>-->
+<footer th:insert="footer::service(${title},${subtitle})" id="myservice"> </footer>
+</body>
+</html>

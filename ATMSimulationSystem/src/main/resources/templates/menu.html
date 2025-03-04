@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ATM Menu</title>
+</head>
+<body>
+    <h2>ATM Menu</h2>
+    <p th:text="${message}"></p> <!-- Shows login success message -->
+
+    <form action="/atm/check-balance" method="post">
+        <input type="hidden" name="accountNumber" th:value="${accountNumber}">
+        <input type="hidden" name="pin" th:value="${pin}">
+        <button type="submit">Check Balance</button>
+    </form>
+
+    <form action="/atm/deposit" method="post">
+        <input type="hidden" name="accountNumber" th:value="${accountNumber}">
+        <input type="hidden" name="pin" th:value="${pin}">
+        <label>Deposit Amount:</label>
+        <input type="number" name="amount" required>
+        <button type="submit">Deposit</button>
+    </form>
+
+    <form action="/atm/withdraw" method="post">
+        <input type="hidden" name="accountNumber" th:value="${accountNumber}">
+        <input type="hidden" name="pin" th:value="${pin}">
+        <label>Withdraw Amount:</label>
+        <input type="number" name="amount" required>
+        <button type="submit">Withdraw</button>
+    </form>
+</body>
+</html>

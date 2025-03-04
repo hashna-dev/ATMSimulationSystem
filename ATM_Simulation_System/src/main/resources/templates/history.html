@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="" xmlns:th="https://www.thymeLeaf.org">
+<head>
+<link rel="stylesheet" href="/style.css">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Get Transaction By Account Number</h1>
+<form th:action="@{/accounts/history}" method="post">
+<label for="accountNumber">Account Number</label>
+<input type="text" id="accountNumber" name="accountNumber" required="required" placehoder="Enter account number"><br><br>
+<button type="submit">Get Transaction</button>
+</form>
+</body>
+</html>
